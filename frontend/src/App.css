@@ -11,8 +11,11 @@
 
 .landing {
 	position: relative;
-	background-color: var(--primary-colour);
+	background: url("./img/screen-watching-background.jpg") no-repeat center center;
+	background-attachment: fixed;
+	background-size: cover;
 	height: 100vh;
+	color: white;
 }
 
 .landing--inner {
@@ -22,7 +25,7 @@
 	position: relative;
 	top: 10%;
 	background: rgb(0, 0, 0, 0.3);
-	border-radius: 0.4rem;
+	border-radius: 0.6rem;
 }
 
 .landing--buttons {
@@ -60,6 +63,10 @@
 
 /*  text sizes */
 
+.text-xlarge {
+	font-size: 2.4rem;
+}
+
 .text-large {
 	font-size: 2rem;
 }
@@ -90,7 +97,7 @@ p {
 }
 
 .landing--info-text {
-	top: 12%;
+	top: 14%;
 	padding: 15px;
 	text-align: center;
 	margin: 0 auto;
