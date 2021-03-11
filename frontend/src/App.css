@@ -1,9 +1,9 @@
 /* global styles */
 
 :root {
-	--primary-colour: rgb(198, 202, 237);
-	--dark-primary-colour: rgb(161, 166, 212);
-	--darker-primary-colour: rgb(123, 132, 206);
+	--primary-colour: rgba(0, 0, 0, 0.507);
+	--dark-primary-colour: rgb(255, 0, 0);
+	--darker-primary-colour: rgb(185, 0, 0);
 	--secondary-colour: rgb(198, 202, 237);
 }
 
@@ -15,7 +15,7 @@
 	height: 100vh;
 }
 
-.landing-inner {
+.landing--inner {
 	width: 40rem;
 	height: 40rem;
 	margin: 0 auto;
@@ -25,25 +25,38 @@
 	border-radius: 0.4rem;
 }
 
+.landing--buttons {
+	position: absolute;
+	bottom: 0;
+	margin: auto;
+	right: 0;
+	left: 0;
+	top: 0;
+	height: 100px;
+	width: 300px;
+	text-align: center;
+}
+
 /* buttons */
 
 .button {
 	border-radius: 5px;
 	padding: 0.4rem 1.3rem;
-	font-size: 1rem;
+	font-size: 1.6rem;
 	text-align: center;
 	cursor: pointer;
 	display: inline-block;
 	text-decoration: none;
+	box-shadow: 3px 3px rgb(0, 0, 0, 0.3);
 }
 
-.button-primary:hover {
-	background: var(--darker-primary-colour);
-}
-
-.button-primary {
+.button--primary {
 	background: var(--dark-primary-colour);
 	color: white;
+}
+
+.button--primary:hover {
+	background: var(--darker-primary-colour);
 }
 
 /*  headings */
