@@ -1,7 +1,7 @@
 /* global styles */
 
 :root {
-	--primary-colour: rgba(0, 0, 0, 0.507);
+	--primary-colour: rgba(255, 255, 255, 0.842);
 	--dark-primary-colour: rgb(255, 0, 0);
 	--darker-primary-colour: rgb(185, 0, 0);
 	--secondary-colour: rgb(198, 202, 237);
@@ -17,7 +17,7 @@
 
 .landing--inner {
 	width: 40rem;
-	height: 40rem;
+	height: 25rem;
 	margin: 0 auto;
 	position: relative;
 	top: 10%;
@@ -27,11 +27,10 @@
 
 .landing--buttons {
 	position: absolute;
-	bottom: 0;
 	margin: auto;
+	bottom: 0;
 	right: 0;
 	left: 0;
-	top: 0;
 	height: 100px;
 	width: 300px;
 	text-align: center;
@@ -59,8 +58,40 @@
 	background: var(--darker-primary-colour);
 }
 
-/*  headings */
+/*  text sizes */
+
+.text-large {
+	font-size: 2rem;
+}
+
+.text-medium {
+	font-size: 1.5rem;
+}
+
+/*  text */
 
 h1 {
 	position: absolute;
+}
+
+p {
+	position: absolute;
+}
+
+.title {
+	padding: 15px;
+	margin: 0px 5px;
+	right: 0;
+	left: 0;
+}
+
+.landing-title {
+	text-align: center;
+}
+
+.landing--info-text {
+	top: 12%;
+	padding: 15px;
+	text-align: center;
+	margin: 0 auto;
 }

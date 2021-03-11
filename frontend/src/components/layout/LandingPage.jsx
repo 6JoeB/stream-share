@@ -5,7 +5,13 @@ const LandingPage = () => {
 	return (
 		<section className='landing'>
 			<div className='landing--inner'>
-				<h1>Find a friend to share a streaming account with</h1>
+				<div className='landing-title'>
+					<h1 className='text-large title'>Stream share</h1>
+				</div>
+				<p className='text-medium landing--info-text'>
+					The quickest way to find a friend to share a streaming account with and save
+					money!
+				</p>
 				<div className='landing--buttons'>
 					<Link to='/findafriend' className='button button--primary'>
 						Find a Friend
