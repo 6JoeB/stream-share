@@ -154,3 +154,62 @@
 .button--primary:hover {
 	background: var(--darker-primary-colour);
 }
+
+/* forms */
+
+.form .form--group {
+	margin: 1.2rem 0;
+	padding: 0;
+}
+
+.form .form--text {
+	display: block;
+	margin-top: 0.3rem;
+	color: #888;
+}
+.form .form--placeholder {
+	font-size: 14px;
+	display: flex;
+	padding-left: 0.4rem;
+	padding-top: 0.23rem;
+	background-color: white !important;
+}
+.form .form--input {
+	border: none;
+	display: block;
+	width: 100%;
+	padding-right: 0.4rem;
+	padding-left: 0.4rem;
+	padding-bottom: 0.4rem;
+	padding-top: 0.1rem;
+	font-size: 1.2rem;
+	margin: 0px;
+	min-height: 0px;
+	min-width: 0px;
+	/* background-color: white !important; */
+}
+
+.form .form--input:focus {
+	outline: none;
+}
+
+.form .form--input:-webkit-autofill,
+.form .form--input:-webkit-autofill:hover,
+.form .form--input:-webkit-autofill:focus,
+.form .form--input:-webkit-autofill:active {
+	-webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+.form label,
+.form select,
+.form textarea {
+	display: block;
+	width: 100%;
+	padding: 0.4rem;
+	font-size: 1.2rem;
+	border: 1px solid #ccc;
+	margin: 0px;
+	min-height: 0px;
+	min-width: 0px;
+	outline: none !important;
+}

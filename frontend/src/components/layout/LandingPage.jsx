@@ -11,17 +11,14 @@ const LandingPage = () => {
 					</h1>
 				</div>
 				<div className='landing-info p'>
-					<p className='text--xmedium text--centered m--auto ptop'>Find friends</p>
+					<p className='text--xmedium text--centered m--auto ptop'>Find friends.</p>
 					<p className='text--xmedium text--centered m--auto ptop'>
-						Share a streaming account
+						Share a streaming account.
 					</p>
 					<p className='text--xmedium text--centered m--auto p'>Save money!</p>
 				</div>
 				<div className='text--centered m--auto'>
-					<Link
-						to='/findafriend'
-						className='button button--primary p my--1 text--xmedium'
-					>
+					<Link to='/register' className='button button--primary p my--1 text--xmedium'>
 						Find a Friend
 					</Link>
 				</div>
