@@ -3,8 +3,116 @@
 :root {
 	--primary-colour: rgba(255, 255, 255, 0.842);
 	--dark-primary-colour: rgb(255, 0, 0);
-	--darker-primary-colour: rgb(185, 0, 0);
+	--darker-primary-colour: rgb(207, 0, 0);
 	--secondary-colour: rgb(198, 202, 237);
+}
+
+/* padding */
+
+.p {
+	padding: 0.5rem;
+}
+
+.p--1 {
+	padding: 1rem;
+}
+
+.p--2 {
+	padding: 2rem;
+}
+
+.p--3 {
+	padding: 3rem;
+}
+
+.py {
+	padding: 0.5rem 0;
+}
+
+.py--1 {
+	padding: 1rem 0;
+}
+
+.py--2 {
+	padding: 2rem 0;
+}
+
+.py--3 {
+	padding: 3rem 0;
+}
+
+.ptop {
+	padding-top: 0.5rem;
+}
+
+/* margin */
+
+.m--0 {
+	margin: 0px;
+}
+
+.m {
+	margin: 0.5rem;
+}
+
+.m--1 {
+	margin: 1rem;
+}
+
+.m--2 {
+	margin: 2rem;
+}
+
+.m--3 {
+	margin: 3rem;
+}
+
+.my {
+	margin: 0.5rem 0;
+}
+
+.my--1 {
+	margin: 1rem 0;
+}
+
+.my--2 {
+	margin: 2rem 0;
+}
+
+.my--3 {
+	margin: 3rem 0;
+}
+
+.m--auto {
+	margin: auto;
+}
+
+/*  text sizes */
+
+.text--medium {
+	font-size: 1.5rem;
+}
+
+.text--xmedium {
+	font-size: 1.75rem;
+}
+
+.text--large {
+	font-size: 2rem;
+}
+
+.text--xlarge {
+	font-size: 2.5rem;
+}
+
+.text--xxlarge {
+	font-size: 3rem;
+}
+
+/*  text */
+
+.text--centered {
+	text-align: center;
 }
 
 /* layout */
@@ -18,38 +126,24 @@
 	color: white;
 }
 
-.landing--inner {
-	width: 40rem;
-	height: 25rem;
-	margin: 0 auto;
+.landing--overlay {
+	width: 27rem;
+	height: 23rem;
 	position: relative;
-	top: 10%;
-	background: rgb(0, 0, 0, 0.3);
+	top: 20%;
+	background: rgba(0, 0, 0, 0.5);
 	border-radius: 0.6rem;
-}
-
-.landing--buttons {
-	position: absolute;
-	margin: auto;
-	bottom: 0;
-	right: 0;
-	left: 0;
-	height: 100px;
-	width: 300px;
-	text-align: center;
 }
 
 /* buttons */
 
 .button {
 	border-radius: 5px;
-	padding: 0.4rem 1.3rem;
-	font-size: 1.6rem;
 	text-align: center;
 	cursor: pointer;
 	display: inline-block;
 	text-decoration: none;
-	box-shadow: 3px 3px rgb(0, 0, 0, 0.3);
+	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .button--primary {
@@ -59,46 +153,4 @@
 
 .button--primary:hover {
 	background: var(--darker-primary-colour);
-}
-
-/*  text sizes */
-
-.text-xlarge {
-	font-size: 2.4rem;
-}
-
-.text-large {
-	font-size: 2rem;
-}
-
-.text-medium {
-	font-size: 1.5rem;
-}
-
-/*  text */
-
-h1 {
-	position: absolute;
-}
-
-p {
-	position: absolute;
-}
-
-.title {
-	padding: 15px;
-	margin: 0px 5px;
-	right: 0;
-	left: 0;
-}
-
-.landing-title {
-	text-align: center;
-}
-
-.landing--info-text {
-	top: 14%;
-	padding: 15px;
-	text-align: center;
-	margin: 0 auto;
 }

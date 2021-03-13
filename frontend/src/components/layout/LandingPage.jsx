@@ -4,16 +4,22 @@ import { Link } from "react-router-dom";
 const LandingPage = () => {
 	return (
 		<section className='landing'>
-			<div className='landing--inner'>
-				<div className='landing-title'>
-					<h1 className='text-xlarge title'>Stream Share</h1>
+			<div className='landing--overlay m--auto'>
+				<div className='text--centered'>
+					<h1 className='text--xxlarge m--0 p--1'>Stream Share</h1>
 				</div>
-				<p className='text-medium landing--info-text'>
-					The quickest way to find a friend to share a streaming account with and save
-					money!
-				</p>
-				<div className='landing--buttons'>
-					<Link to='/findafriend' className='button button--primary'>
+				<div className='landing-info p'>
+					<p className='text--xmedium text--centered m--auto ptop'>Find friends</p>
+					<p className='text--xmedium text--centered m--auto ptop'>
+						Share a streaming account
+					</p>
+					<p className='text--xmedium text--centered m--auto ptop'>Save money!</p>
+				</div>
+				<div className='text--centered m--auto'>
+					<Link
+						to='/findafriend'
+						className='button button--primary p my--2 text--xmedium'
+					>
 						Find a Friend
 					</Link>
 				</div>
