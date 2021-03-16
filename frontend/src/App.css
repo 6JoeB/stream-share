@@ -165,6 +165,21 @@
 	background: var(--darker-primary-colour);
 }
 
+select {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	text-indent: 1px;
+	text-overflow: "";
+}
+
+.carat-down {
+	position: absolute;
+	color: black;
+	right: 1.4rem;
+	font-size: x-large;
+	top: 14.7rem;
+}
+
 /* forms */
 
 .display--flex {

@@ -7,16 +7,19 @@ const Register = () => {
 		streamingService: "",
 	});
 
+	const [formSubmitted, toggleFormSubmitted] = useState(false);
+
 	const { name, email, streamingService } = formData;
 
 	const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
-		console.log(formData);
+		toggleFormSubmitted(true);
+		console.log(formSubmitted);
 	};
 
-	return (
+	const registerForm = (
 		<div className='background'>
 			<div className='register--container m--auto'>
 				<div className='p'>
@@ -58,13 +61,14 @@ const Register = () => {
 							<div className='form--placeholder'>
 								<span>Select a streaming service</span>
 							</div>
+							<i class='fas fa-caret-down carat-down'></i>
 							<select
 								className='form--input'
 								onChange={(e) => onChange(e)}
 								name='streamingService'
 								required
 							>
-								<option value='' selected>
+								<option value='' defaultValue>
 									--Select service--
 								</option>
 								<option value='Netflix'>Netflix</option>
@@ -82,6 +86,16 @@ const Register = () => {
 			</div>
 		</div>
 	);
+
+	const registerFormSubmitted = (
+		<div className='background m--auto'>
+			<div className='register--container m--auto'>
+				<h1 className='m'>Form submitted</h1>
+			</div>
+		</div>
+	);
+
+	return formSubmitted ? registerFormSubmitted : registerForm;
 };
 
 export default Register;
