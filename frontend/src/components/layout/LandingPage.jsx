@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 
 const LandingPage = () => {
 	return (
-		<section className='landing'>
+		<section className='background'>
 			<div className='landing--overlay m--auto'>
 				<div className='text--centered'>
 					<h1 className='text--xxlarge m--0 p--1'>
-						Stream Share <i class='fas fa-user-friends'></i>
+						Stream Share <i className='fas fa-user-friends'></i>
 					</h1>
 				</div>
 				<div className='landing-info p'>
