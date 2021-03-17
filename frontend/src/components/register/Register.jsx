@@ -75,6 +75,11 @@ const Register = () => {
 								<option value='Amazon Prime'>Amazon Prime</option>
 							</select>
 						</label>
+						<label for='register-checkbox' className='register-form--checkbox'>
+							<input type='checkbox' className='m--0' id='register-checkbox' required />{" "}
+							By registering you are agreeing to share your email with another Stream
+							Share user
+						</label>
 						<input
 							type='submit'
 							className='button button--primary p text--medium'
@@ -90,7 +95,7 @@ const Register = () => {
 		<div className='background m--auto'>
 			<div className='register--container m--auto'>
 				<h1 className='text--centered m--auto p'>Registered Successfully</h1>
-				<p className='p--1 m--0'>
+				<p className='p-no-top  m--0'>
 					Once we have found you a match you will get an email at {email}.
 				</p>
 			</div>
