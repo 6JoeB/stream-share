@@ -166,18 +166,16 @@
 }
 
 select {
+	font-size: 16px;
+	line-height: 1;
+	height: 34px;
+	background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png)
+		no-repeat right #ddd;
 	-webkit-appearance: none;
 	-moz-appearance: none;
-	text-indent: 1px;
-	text-overflow: "";
-}
-
-.carat-down {
-	position: absolute;
-	color: black;
-	right: 1.4rem;
-	font-size: x-large;
-	top: 14.7rem;
+	appearance: none;
+	background-position-x: 23.4rem;
+	background-color: white;
 }
 
 /* forms */

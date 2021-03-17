@@ -61,7 +61,6 @@ const Register = () => {
 							<div className='form--placeholder'>
 								<span>Select a streaming service</span>
 							</div>
-							<i class='fas fa-caret-down carat-down'></i>
 							<select
 								className='form--input'
 								onChange={(e) => onChange(e)}
