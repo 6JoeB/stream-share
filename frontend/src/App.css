@@ -127,8 +127,7 @@
 }
 
 .landing--overlay {
-	width: 27rem;
-	height: 20rem;
+	max-width: 27rem;
 	position: relative;
 	top: 20%;
 	background: rgba(0, 0, 0, 0.5);
@@ -136,8 +135,7 @@
 }
 
 .register--container {
-	height: 22rem;
-	width: 27rem;
+	max-width: 27rem;
 	position: relative;
 	top: 8%;
 	background: rgba(0, 0, 0, 0.5);

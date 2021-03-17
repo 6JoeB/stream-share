@@ -89,7 +89,10 @@ const Register = () => {
 	const registerFormSubmitted = (
 		<div className='background m--auto'>
 			<div className='register--container m--auto'>
-				<h1 className='m'>Form submitted</h1>
+				<h1 className='text--centered m--auto p'>Registered Successfully</h1>
+				<p className='p--1 m--0'>
+					Once we have found you a match you will get an email at {email}.
+				</p>
 			</div>
 		</div>
 	);
