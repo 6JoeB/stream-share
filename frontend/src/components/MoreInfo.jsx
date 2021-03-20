@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const MoreInfo = () => {
 	return (
 		<div className='background'>
-			<section className='details-container m--auto'>
+			<section className='container m--auto'>
 				<div className='text--centered'>
 					<h1 className='text--xxlarge m--0 p--1'>More Info</h1>
 				</div>

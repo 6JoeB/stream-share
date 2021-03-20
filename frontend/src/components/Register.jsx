@@ -21,7 +21,7 @@ const Register = () => {
 
 	const registerForm = (
 		<div className='background'>
-			<div className='details-container m--auto'>
+			<div className='container m--auto'>
 				<section className='p'>
 					<div className='text--centered'>
 						<h1 className='m text--xxlarge m--0'>Register</h1>
