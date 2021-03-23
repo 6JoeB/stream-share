@@ -27,9 +27,11 @@ router.post(
 
 			if (user) {
 				if (!user.verified) {
-					res.status(200).json({ msg: "Email already registered but not verified" });
+					return res
+						.status(200)
+						.json({ msg: "Email already registered but not verified" });
 				}
-				res.status(200).json({ msg: "Email already registered" });
+				return res.status(200).json({ msg: "Email already registered" });
 			}
 
 			user = new User({ name, email, streamingService });
@@ -38,6 +40,42 @@ router.post(
 		} catch (err) {
 			console.error(err.message);
 			res.status(500).send("Server wrror");
+		}
+	}
+);
+
+// @route GET api/users/findmatch
+// @desc Find a match for a user
+router.get(
+	"/findmatch",
+	[
+		check("streamingService", "StreamingService is required").not().isEmpty(),
+		check("email", "Please enter valid email").isEmail(),
+	],
+	async (req, res) => {
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			return res.status(400).json({ errors: errors.array() });
+		}
+
+		const { streamingService, email } = req.body;
+
+		try {
+			let users = await User.find({ streamingService, verified: true, searching: true });
+
+			if (users.length === 0) {
+				return res.status(200).json({ msg: "No matches found" });
+			}
+
+			users.forEach((user) => {
+				if (user.email !== email) {
+					return res.status(200).json(user);
+				}
+			});
+			return res.status(200).json({ msg: "No matches found" });
+		} catch (err) {
+			console.error(err.message);
+			res.status(500).send("Server error");
 		}
 	}
 );
