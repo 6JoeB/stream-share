@@ -64,7 +64,7 @@ router.get(
 			let users = await User.find({ streamingService, verified: true, searching: true });
 
 			if (users.length === 0) {
-				return res.status(200).json({ msg: "No matches found" });
+				return res.status(404).json({ msg: "No matches found" });
 			}
 
 			users.forEach((user) => {
@@ -72,7 +72,7 @@ router.get(
 					return res.status(200).json(user);
 				}
 			});
-			return res.status(200).json({ msg: "No matches found" });
+			return res.status(404).json({ msg: "No matches found" });
 		} catch (err) {
 			console.error(err.message);
 			res.status(500).send("Server error");
