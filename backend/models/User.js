@@ -13,13 +13,13 @@ const UserScheme = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	searching: {
-		type: Boolean,
-		default: false,
-	},
 	verified: {
 		type: Boolean,
 		default: false,
+	},
+	searching: {
+		type: Boolean,
+		default: true,
 	},
 });
 
