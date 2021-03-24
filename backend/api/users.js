@@ -36,10 +36,10 @@ router.post(
 
 			user = new User({ name, email, streamingService });
 			user.save();
-			res.status(200).json(user);
+			res.status(201).json(user);
 		} catch (err) {
 			console.error(err.message);
-			res.status(500).send("Server wrror");
+			res.status(500).send("Server error");
 		}
 	}
 );
@@ -79,5 +79,27 @@ router.get(
 		}
 	}
 );
+
+// @route GET api/users/verify/:email
+// @desc Verify a users email
+
+router.put("/verify/:email", async (req, res) => {
+	const email = req.params.email;
+
+	try {
+		const user = await User.findOne({ email });
+
+		if (!user) {
+			return res.status(200).json({ msg: "No user found" });
+		}
+		user.verified = true;
+		user.save();
+
+		return res.status(200).json(user);
+	} catch (err) {
+		console.error(err.message);
+		return res.status(500).send("Server error");
+	}
+});
 
 module.exports = router;
