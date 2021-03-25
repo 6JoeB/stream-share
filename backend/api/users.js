@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
 const config = require("config");
+const emailAddress = config.get("emailAddress");
+const emailPassword = config.get("emailPassword");
 const nodemailer = require("nodemailer");
 const User = require("../models/User");
 
@@ -20,7 +22,8 @@ router.post(
 			return res.status(400).json({ errors: errors.array() });
 		}
 
-		const { name, email, streamingService } = req.body;
+		const email = req.body.email.toLowerCase();
+		const { name, streamingService } = req.body;
 
 		try {
 			let user = await User.findOne({ email });
@@ -43,6 +46,74 @@ router.post(
 		}
 	}
 );
+
+// @route POST api/users/verify/:email
+// @desc Send a verification email to a user
+router.post("/verify/:email", async (req, res) => {
+	try {
+		const email = req.params.email.toLowerCase();
+		let user = await User.findOne({ email });
+
+		if (!user) {
+			return res.status(404).json({ errors: [{ msg: "Invalid email" }] });
+		}
+
+		var transport = nodemailer.createTransport({
+			service: "Gmail",
+			auth: {
+				user: emailAddress,
+				pass: emailPassword,
+			},
+		});
+
+		var mailOptions = {
+			from: '"Stream Share" <StreamShareContact@gmail.com>',
+			to: email,
+			subject: "Verify your Stream Share account",
+			text: "Please verify that you signed up for Stream Share",
+			html: `<b> Hi there ${user.name}! </b> <br> <br>
+			Looks like someone signed up to Stream Share using your email. <br>
+			If this was not you then you can safely ignore this email. <br>
+			<a href="http://localhost:3000/verify/${email}" target="_blank">Click here to verify your email.</a> <br><br>
+			<i>From the team at Stream Share</i>`,
+		};
+
+		transport.sendMail(mailOptions, (error, info) => {
+			if (error) {
+				return console.log(error);
+			}
+			console.log("Message sent: %s", info.messageId);
+		});
+
+		return res.status(200).send(`Message sent to ${email}`);
+	} catch (err) {
+		console.error(err.message);
+		return res.status(500).send("Server error");
+	}
+});
+
+// @route GET api/users/verify/:email
+// @desc Verify a users email
+
+router.put("/verify/:email", async (req, res) => {
+	const email = req.params.email.toLowerCase();
+
+	try {
+		const user = await User.findOne({ email });
+
+		if (!user) {
+			return res.status(404).json({ msg: "No user found" });
+		}
+
+		user.verified = true;
+		user.save();
+
+		return res.status(200).json(user);
+	} catch (err) {
+		console.error(err.message);
+		return res.status(500).send("Server error");
+	}
+});
 
 // @route GET api/users/findmatch
 // @desc Find a match for a user
@@ -79,27 +150,5 @@ router.get(
 		}
 	}
 );
-
-// @route GET api/users/verify/:email
-// @desc Verify a users email
-
-router.put("/verify/:email", async (req, res) => {
-	const email = req.params.email;
-
-	try {
-		const user = await User.findOne({ email });
-
-		if (!user) {
-			return res.status(200).json({ msg: "No user found" });
-		}
-		user.verified = true;
-		user.save();
-
-		return res.status(200).json(user);
-	} catch (err) {
-		console.error(err.message);
-		return res.status(500).send("Server error");
-	}
-});
 
 module.exports = router;
