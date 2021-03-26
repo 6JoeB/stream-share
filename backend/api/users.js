@@ -71,7 +71,7 @@ router.post("/verify/:email", async (req, res) => {
 			to: email,
 			subject: "Verify your Stream Share account",
 			text: "Please verify that you signed up for Stream Share",
-			html: `<b> Hi there ${user.name}! </b> <br> <br>
+			html: `<b> Hi there, ${user.name}! </b> <br> <br>
 			Looks like someone signed up to Stream Share using your email. <br>
 			If this was not you then you can safely ignore this email. <br>
 			<a href="http://localhost:3000/verify/${email}" target="_blank">Click here to verify your email.</a> <br><br>
@@ -129,21 +129,75 @@ router.get(
 			return res.status(400).json({ errors: errors.array() });
 		}
 
-		const { streamingService, email } = req.body;
+		const email = req.body.email.toLowerCase();
 
 		try {
+			let newUser = await User.findOne({ email });
+
+			if (!newUser || newUser.searching !== true) {
+				return res.status(404).json({ msg: "No matches found" });
+			}
+
+			const { streamingService } = newUser;
 			let users = await User.find({ streamingService, verified: true, searching: true });
 
-			if (users.length === 0) {
+			if (users.length == 0) {
 				return res.status(404).json({ msg: "No matches found" });
 			}
 
 			users.forEach((user) => {
 				if (user.email !== email) {
-					return res.status(200).json(user);
+					var transport = nodemailer.createTransport({
+						service: "Gmail",
+						auth: {
+							user: emailAddress,
+							pass: emailPassword,
+						},
+					});
+
+					var mailOptions = {
+						from: '"Stream Share" <StreamShareContact@gmail.com>',
+						to: user.email,
+						subject: "We found you a streaming friend!",
+						text: "We found you a streaming friend!",
+						html: `<b> Hi there, ${user.name}! </b> <br> <br>
+							We have found you a friend who also wants to share a ${user.streamingService} account and save money. <br>
+							Their name is ${newUser.name} and their email is ${newUser.email}. <br><br>
+							<i>Never share a password you use for any other account, generate a new secure unique password for your shared account. <br><br>
+							From the team at Stream Share.</i>`,
+					};
+
+					// {
+					// 	from: '"Stream Share" <StreamShareContact@gmail.com>',
+					// 	to: newUser.email,
+					// 	subject: "We found you a streaming friend!",
+					// 	text: "We found you a streaming friend!",
+					// 	html: `<b> Hi there, ${newUser.name}! </b> <br> <br>
+					// 	We have found you a friend who also wants to share a ${newUser.streamingService} account and save money. <br>
+					// 	Their name is ${user.name} and their email is ${user.email}. <br>
+					// 	<i>Never share a password you use for any other account, generate a new secure unique password for your shared account. <br>
+					// 	From the team at Stream Share.</i>`,
+					// },
+
+					transport.sendMail(mailOptions, (error, info) => {
+						if (error) {
+							return console.log(error);
+						}
+						console.log("Message sent: %s", info.messageId);
+
+						user.searching = false;
+						user.save();
+
+						newUser.searching = false;
+						newUser.save();
+
+						matchSuccess = true;
+						return res.status(200).json({
+							msg: `User matches found`,
+						});
+					});
 				}
 			});
-			return res.status(404).json({ msg: "No matches found" });
 		} catch (err) {
 			console.error(err.message);
 			res.status(500).send("Server error");
