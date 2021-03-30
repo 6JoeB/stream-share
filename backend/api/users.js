@@ -93,7 +93,7 @@ router.post("/verify/:email", async (req, res) => {
 	}
 });
 
-// @route GET api/users/verify/:email
+// @route PUT api/users/verify/:email
 // @desc Verify a users email
 
 router.put("/verify/:email", async (req, res) => {
