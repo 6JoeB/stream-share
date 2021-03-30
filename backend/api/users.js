@@ -1,5 +1,5 @@
-const router = express.Router();
 const express = require("express");
+const router = express.Router();
 const { check, validationResult } = require("express-validator");
 const config = require("config");
 const emailAddress = config.get("emailAddress");
