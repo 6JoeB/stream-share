@@ -1,5 +1,5 @@
-const express = require("express");
 const router = express.Router();
+const express = require("express");
 const { check, validationResult } = require("express-validator");
 const config = require("config");
 const emailAddress = config.get("emailAddress");
@@ -28,18 +28,17 @@ router.post(
 		try {
 			let user = await User.findOne({ email });
 
-			if (user) {
-				if (!user.verified) {
-					return res
-						.status(200)
-						.json({ msg: "Email already registered but not verified" });
-				}
-				return res.status(200).json({ msg: "Email already registered" });
+			if (!user) {
+				user = new User({ name, email, streamingService });
+				user.save();
+				return res.status(201).json(user);
 			}
 
-			user = new User({ name, email, streamingService });
-			user.save();
-			res.status(201).json(user);
+			if (!user.verified) {
+				return res.status(200).json({ msg: "Email already registered but not verified" });
+			}
+
+			return res.status(200).json({ msg: "Email already registered" });
 		} catch (err) {
 			console.error(err.message);
 			res.status(500).send("Server error");
@@ -142,7 +141,7 @@ router.get(
 			const { streamingService } = newUser;
 			let users = await User.find({ streamingService, verified: true, searching: true });
 
-			if (users.length < 1) {
+			if (users.length <= 1) {
 				return res.status(404).json({ msg: "No matches found" });
 			}
 
@@ -178,7 +177,7 @@ router.get(
 							Their name is ${user.name} and their email is ${user.email}, why not contact them today and arrange sharing an account. <br /><br />
 							<i>Never share a password you use for any other account, generate a new secure unique password for your shared account. <br />
 							From the team at Stream Share.</i>`,
-						},
+						}, //mail helper function
 					];
 
 					mailOptions.forEach((option) => {
