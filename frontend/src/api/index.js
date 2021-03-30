@@ -6,7 +6,7 @@ const config = {
 	},
 };
 
-export default registerUser = async (name, email, streamingService) => {
+export const registerUser = async (name, email, streamingService) => {
 	const body = JSON.stringify({ name, email, streamingService });
 
 	try {
@@ -16,7 +16,7 @@ export default registerUser = async (name, email, streamingService) => {
 	}
 };
 
-export default sendEmailVerifiction = async (email) => {
+export const sendEmailVerifiction = async (email) => {
 	try {
 		await axios.post(`/api/users/verify/${email}`, config);
 	} catch (err) {
@@ -24,7 +24,29 @@ export default sendEmailVerifiction = async (email) => {
 	}
 };
 
-//PUT api/users/verify/:email
+export const verifyUserEmail = async (email) => {
+	try {
+		await axios.put(`/api/users/verify/${email}`, config);
+	} catch (err) {
+		console.log(err);
+	}
+};
 
-//GET api/users/findmatch
-export default searchForUserMatch = async();
+export const searchForUserMatch = async (email, streamingService) => {
+	const body = JSON.stringify({ email, streamingService });
+
+	try {
+		await axios.get(`/api/users/findmatch`, body, config);
+	} catch (err) {
+		console.log(err);
+	}
+};
+
+const apis = {
+	searchForUserMatch,
+	verifyUserEmail,
+	sendEmailVerifiction,
+	registerUser,
+};
+
+export default apis;
