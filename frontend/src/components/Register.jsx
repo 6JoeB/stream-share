@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import apis from "../api/index";
 
 const Register = () => {
 	const [formData, setFormData] = useState({
@@ -16,7 +17,8 @@ const Register = () => {
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		toggleFormSubmitted(true);
-		console.log(formSubmitted);
+		apis.registerUser(name, email, streamingService);
+		apis.sendEmailVerifiction(email);
 	};
 
 	const registerForm = (
@@ -98,7 +100,8 @@ const Register = () => {
 			<div className='register--container m--auto'>
 				<h1 className='text--centered m--auto p'>Registered Successfully</h1>
 				<p className='p-no-top  m--0'>
-					Once we have found you a match you will get an email at {email}.
+					We have sent a verification email to {email}, please confirm your email address
+					and then we will search for your match.
 				</p>
 			</div>
 		</div>
