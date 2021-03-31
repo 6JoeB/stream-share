@@ -31,7 +31,7 @@ router.post(
 			if (!user) {
 				user = new User({ name, email, streamingService });
 				user.save();
-				return res.status(201).json(user);
+				return res.status(201).json({ msg: "success", user });
 			}
 
 			if (!user.verified) {

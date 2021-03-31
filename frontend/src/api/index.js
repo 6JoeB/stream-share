@@ -42,11 +42,11 @@ export const searchForUserMatch = async (email, streamingService) => {
 	}
 };
 
-const apis = {
+const apiService = {
 	searchForUserMatch,
 	verifyUserEmail,
 	sendEmailVerifiction,
 	registerUser,
 };
 
-export default apis;
+export default apiService;

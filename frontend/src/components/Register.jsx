@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import apis from "../api/index";
+// import apiService from "../api/index";
 
 const Register = () => {
 	const [formData, setFormData] = useState({
@@ -16,9 +16,10 @@ const Register = () => {
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
+		// const res = apiService.registerUser(name, email, streamingService);
+		// console.log(res);
 		toggleFormSubmitted(true);
-		apis.registerUser(name, email, streamingService);
-		apis.sendEmailVerifiction(email);
+		// apiService.sendEmailVerifiction(email);
 	};
 
 	const registerForm = (
@@ -36,7 +37,7 @@ const Register = () => {
 							<div className='display--flex'>
 								<input
 									className='form--input'
-									autocomplete='off'
+									autoComplete='off'
 									type='text'
 									name='name'
 									value={name}
@@ -52,7 +53,7 @@ const Register = () => {
 							<div className='display--flex'>
 								<input
 									className='form--input'
-									autocomplete='off'
+									autoComplete='off'
 									type='email'
 									name='email'
 									value={email}
@@ -97,7 +98,7 @@ const Register = () => {
 
 	const registerFormSubmitted = (
 		<div className='background m--auto'>
-			<div className='register--container m--auto'>
+			<div className='container m--auto'>
 				<h1 className='text--centered m--auto p'>Registered Successfully</h1>
 				<p className='p-no-top  m--0'>
 					We have sent a verification email to {email}, please confirm your email address
