@@ -28,46 +28,42 @@ router.post(
 		try {
 			let user = await User.findOne({ email });
 
-			if (!user) {
-				user = new User({ name, email, streamingService });
-				user.save();
-
-				var transport = nodemailer.createTransport({
-					service: "Gmail",
-					auth: {
-						user: emailAddress,
-						pass: emailPassword,
-					},
-				});
-
-				var mailOptions = {
-					from: '"Stream Share" <StreamShareContact@gmail.com>',
-					to: email,
-					subject: "Verify your Stream Share account",
-					text: "Please verify that you signed up for Stream Share",
-					html: `<h2><b> Hi there, ${user.name}! </b></h2>
-					Looks like someone signed up to Stream Share using your email. <br />
-					If this was not you then you can safely ignore this email. <br />
-					<a href="http://localhost:3000/verify/${email}" target="_blank">Click here to verify your email.</a>
-					<br /><br />
-					<i>From the team at Stream Share</i>`,
-				};
-
-				transport.sendMail(mailOptions, (error, info) => {
-					if (error) {
-						return console.log(error);
-					}
-					console.log("Message sent: %s", info.messageId);
-				});
-
-				return res.status(201).json({ msg: "success", user });
+			if (user && user.verified) {
+				return res.status(200).json({ msg: "Email already registered" });
 			}
 
-			if (!user.verified) {
-				return res.status(200).json({ msg: "Email already registered but not verified" });
-			}
+			user = new User({ name, email, streamingService });
+			user.save();
 
-			return res.status(200).json({ msg: "Email already registered" });
+			var transport = nodemailer.createTransport({
+				service: "Gmail",
+				auth: {
+					user: emailAddress,
+					pass: emailPassword,
+				},
+			});
+
+			var mailOptions = {
+				from: '"Stream Share" <StreamShareContact@gmail.com>',
+				to: email,
+				subject: "Verify your Stream Share account",
+				text: "Please verify that you signed up for Stream Share",
+				html: `<h2><b> Hi there, ${user.name}! </b></h2>
+				Looks like someone signed up to Stream Share using your email. <br />
+				If this was not you then you can safely ignore this email. <br />
+				<a href="http://localhost:3000/verify/${email}/${streamingService}" target="_blank">Click here to verify your email.</a>
+				<br /><br />
+				<i>From the team at Stream Share</i>`,
+			};
+
+			transport.sendMail(mailOptions, (error, info) => {
+				if (error) {
+					return console.log(error);
+				}
+				console.log("Message sent: %s", info.messageId);
+			});
+
+			return res.status(201).json({ msg: "success", user });
 		} catch (err) {
 			console.error(err.message);
 			res.status(500).send("Server error");
@@ -190,5 +186,18 @@ router.get(
 		}
 	}
 );
+
+// @route GET api/users/:email
+// @desc Find a user
+router.get("/:email", async (req, res) => {
+	const email = req.params.email;
+	try {
+		const user = await User.findOne({ email });
+		return res.status(200).json(user);
+	} catch (err) {
+		console.log(err.message);
+		return res.status(500).send("Server error");
+	}
+});
 
 module.exports = router;
