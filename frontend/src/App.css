@@ -135,7 +135,7 @@
 .container {
 	max-width: 27rem;
 	position: relative;
-	top: 20%;
+	top: 25%;
 	background: rgba(0, 0, 0, 0.5);
 	border-radius: 0.6rem;
 }

@@ -16,13 +16,15 @@ export const registerUser = async (name, email, streamingService) => {
 	}
 };
 
-export const sendEmailVerifiction = async (email) => {
-	try {
-		await axios.post(`/api/users/verify/${email}`, config);
-	} catch (err) {
-		console.log(err);
-	}
-};
+// export const sendEmailVerifiction = async (email) => {
+// 	const body = JSON.stringify({ email });
+
+// 	try {
+// 		await axios.post(`/api/users/verify-email`, body, config);
+// 	} catch (err) {
+// 		console.log(err);
+// 	}
+// };
 
 export const verifyUserEmail = async (email) => {
 	try {
@@ -45,7 +47,6 @@ export const searchForUserMatch = async (email, streamingService) => {
 const apiService = {
 	searchForUserMatch,
 	verifyUserEmail,
-	sendEmailVerifiction,
 	registerUser,
 };
 

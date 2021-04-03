@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import apiService from "../api/index";
+import apiService from "../api/index";
 
 const Register = () => {
 	const [formData, setFormData] = useState({
@@ -16,10 +16,8 @@ const Register = () => {
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
-		// const res = apiService.registerUser(name, email, streamingService);
-		// console.log(res);
+		console.log(apiService.registerUser(name, email, streamingService));
 		toggleFormSubmitted(true);
-		// apiService.sendEmailVerifiction(email);
 	};
 
 	const registerForm = (
@@ -80,7 +78,7 @@ const Register = () => {
 								<option value='Amazon Prime'>Amazon Prime</option>
 							</select>
 						</label>
-						<label for='register-checkbox' className='register-form--checkbox'>
+						<label htmlFor='register-checkbox' className='register-form--checkbox'>
 							<input type='checkbox' className='m--0' id='register-checkbox' required />{" "}
 							By registering you are agreeing to share your email with another Stream
 							Share user
