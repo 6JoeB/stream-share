@@ -16,16 +16,6 @@ export const registerUser = async (name, email, streamingService) => {
 	}
 };
 
-// export const sendEmailVerifiction = async (email) => {
-// 	const body = JSON.stringify({ email });
-
-// 	try {
-// 		await axios.post(`/api/users/verify-email`, body, config);
-// 	} catch (err) {
-// 		console.log(err);
-// 	}
-// };
-
 export const verifyUserEmail = async (email) => {
 	try {
 		await axios.put(`/api/users/verify/${email}`, config);

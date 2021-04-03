@@ -16,7 +16,7 @@ const Register = () => {
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
-		console.log(apiService.registerUser(name, email, streamingService));
+		apiService.registerUser(name, email, streamingService);
 		toggleFormSubmitted(true);
 	};
 
