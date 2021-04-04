@@ -3,19 +3,9 @@ import apiService from "../api/index";
 
 const EmailVerified = ({ match }) => {
 	useEffect(() => {
-		const { email } = match.params;
+		const { email, streamingService } = match.params;
 		apiService.verifyUserEmail(email);
-		// await axios.get(`/api/users/${email}`, config).then((response) => {
-		// 	console.log(response.data.data);
-		// });
-		let user = apiService.findUser(email);
-		console.log(user);
-		// apiService.searchForUserMatch(email, user.streamingService);
-	});
-
-	const [user, setUser] = useState({
-		email: match.params.email,
-		streamingService: "",
+		apiService.searchForUserMatch(email, streamingService);
 	});
 
 	return (

@@ -28,7 +28,7 @@ export const searchForUserMatch = async (email, streamingService) => {
 	const body = JSON.stringify({ email, streamingService });
 
 	try {
-		await axios.get(`/api/users/findmatch`, body, config);
+		await axios.post(`/api/users/findmatch`, body, config);
 	} catch (err) {
 		console.log(err);
 	}

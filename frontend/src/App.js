@@ -13,7 +13,7 @@ const App = () => {
 				<Route exact path='/' component={Landing} />
 				<Route exact path='/register' component={Register} />
 				<Route exact path='/moreinfo' component={MoreInfo} />
-				<Route exact path='/verify/:email' component={EmailVerified} />
+				<Route exact path='/verify/:streamingService/:email' component={EmailVerified} />
 			</Switch>
 		</Router>
 	);
