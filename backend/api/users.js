@@ -51,7 +51,7 @@ router.post(
 				html: `<h2><b> Hi there, ${user.name}! </b></h2>
 				Looks like someone signed up to Stream Share using your email. <br />
 				If this was not you then you can safely ignore this email. <br />
-				<a href="http://localhost:3000/verify/${email}/${streamingService}" target="_blank">Click here to verify your email.</a>
+				<a href="http://localhost:3000/verify/${email}" target="_blank">Click here to verify your email.</a>
 				<br /><br />
 				<i>From the team at Stream Share</i>`,
 			};
@@ -190,12 +190,18 @@ router.get(
 // @route GET api/users/:email
 // @desc Find a user
 router.get("/:email", async (req, res) => {
-	const email = req.params.email;
+	const email = req.params.email.toLowerCase();
+
 	try {
 		const user = await User.findOne({ email });
-		return res.status(200).json(user);
+
+		if (!user) {
+			return res.status(404).json({ msg: "No user found" });
+		}
+
+		return res.status(200).json({ success: true, data: user });
 	} catch (err) {
-		console.log(err.message);
+		console.error(err.message);
 		return res.status(500).send("Server error");
 	}
 });
