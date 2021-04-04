@@ -34,10 +34,20 @@ export const searchForUserMatch = async (email, streamingService) => {
 	}
 };
 
+export const findUser = async (email) => {
+	try {
+		const res = await axios.get(`/api/users/${email}`, config);
+		return res.data;
+	} catch (err) {
+		console.log(err);
+	}
+};
+
 const apiService = {
 	searchForUserMatch,
 	verifyUserEmail,
 	registerUser,
+	findUser,
 };
 
 export default apiService;
