@@ -1,11 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
-const config = require("config");
-const emailAddress = config.get("emailAddress");
-const emailPassword = config.get("emailPassword");
-const nodemailer = require("nodemailer");
 const User = require("../models/User");
+const emailHelper = require("../helpers/emailHelper");
 
 // @route POST api/users/register
 // @desc Register user
@@ -126,47 +123,14 @@ router.post(
 
 			users.forEach((user) => {
 				if (user.email !== email) {
-					var transport = nodemailer.createTransport({
-						service: "Gmail",
-						auth: {
-							user: emailAddress,
-							pass: emailPassword,
-						},
-					});
-
-					var mailOptions = [
-						{
-							from: '"Stream Share" <StreamShareContact@gmail.com>',
-							to: user.email,
-							subject: "We found you a streaming friend!",
-							text: "We found you a streaming friend!",
-							html: `<h2> <b> Hi there, ${user.name}! </b> </h2>
-							We have found you a friend who also wants to share a ${user.streamingService} account and save money. <br />
-							Their name is ${newUser.name} and their email is ${newUser.email}, why not contact them today and arrange sharing an account. <br /><br />
-							<i>Never share a password you use for any other account, generate a new secure unique password for your shared account. <br />
-							From the team at Stream Share.</i>`,
-						},
-						{
-							from: '"Stream Share" <StreamShareContact@gmail.com>',
-							to: newUser.email,
-							subject: "We found you a streaming friend!",
-							text: "We found you a streaming friend!",
-							html: `<h2> <b> Hi there, ${newUser.name}! </b> </h2>
-							We have found you a friend who also wants to share a ${newUser.streamingService} account and save money. <br />
-							Their name is ${user.name} and their email is ${user.email}, why not contact them today and arrange sharing an account. <br /><br />
-							<i>Never share a password you use for any other account, generate a new secure unique password for your shared account. <br />
-							From the team at Stream Share.</i>`,
-						}, //mail helper function
-					];
-
-					mailOptions.forEach((option) => {
-						transport.sendMail(option, (error, info) => {
-							if (error) {
-								return console.log(error);
-							}
-							console.log("Message sent: %s", info.messageId);
-						});
-					});
+					emailHelper.userMatchFoundEmail(
+						user.email,
+						user.name,
+						user.streamingService,
+						newUser.email,
+						newUser.name,
+						newUser.streamingService
+					);
 
 					user.searching = false;
 					user.save();
