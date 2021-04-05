@@ -12,8 +12,8 @@ const MoreInfo = () => {
 					Many streaming services offer the ability to watch on multiple screens at one
 					time, with only one account required. <br />
 					<br />
-					Stream Share offers a way to connect you to new friends which you can share a
-					streaming account with and all save money. <br />
+					Stream Share offers a way to connect you to new friends who you can share a
+					streaming account with and save money. <br />
 				</p>
 				<div className='text--centered m--auto'>
 					<Link to='/register' className='button button--primary p my--1 text--xmedium'>
