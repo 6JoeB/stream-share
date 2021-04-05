@@ -9,7 +9,7 @@ const emailHelper = require("../helpers/emailHelper");
 router.post(
 	"/register",
 	[
-		check("name", "Name is required").not().isEmpty(),
+		check("username", "username is required").not().isEmpty(),
 		check("streamingService", "StreamingService is required").not().isEmpty(),
 		check("email", "Please enter valid email").isEmail(),
 	],
@@ -20,7 +20,7 @@ router.post(
 		}
 
 		const email = req.body.email.toLowerCase();
-		const { name, streamingService } = req.body;
+		const { username, streamingService } = req.body;
 
 		try {
 			let user = await User.findOne({ email });
@@ -29,36 +29,10 @@ router.post(
 				return res.status(200).json({ msg: "Email already registered" });
 			}
 
-			user = new User({ name, email, streamingService });
+			user = new User({ username, email, streamingService });
 			user.save();
 
-			var transport = nodemailer.createTransport({
-				service: "Gmail",
-				auth: {
-					user: emailAddress,
-					pass: emailPassword,
-				},
-			});
-
-			var mailOptions = {
-				from: '"Stream Share" <StreamShareContact@gmail.com>',
-				to: email,
-				subject: "Verify your Stream Share account",
-				text: "Please verify that you signed up for Stream Share",
-				html: `<h2><b> Hi there, ${user.name}! </b></h2>
-				Looks like someone signed up to Stream Share using your email. <br />
-				If this was not you then you can safely ignore this email. <br />
-				<a href="http://localhost:3000/verify/${streamingService}/${email}" target="_blank">Click here to verify your email.</a>
-				<br /><br />
-				<i>From the team at Stream Share</i>`,
-			};
-
-			transport.sendMail(mailOptions, (error, info) => {
-				if (error) {
-					return console.log(error);
-				}
-				console.log("Message sent: %s", info.messageId);
-			});
+			emailHelper.verificationEmail(username, streamingService, email);
 
 			return res.status(201).json({ msg: "success", user });
 		} catch (err) {
@@ -125,10 +99,10 @@ router.post(
 				if (user.email !== email) {
 					emailHelper.userMatchFoundEmail(
 						user.email,
-						user.name,
+						user.username,
 						user.streamingService,
 						newUser.email,
-						newUser.name,
+						newUser.username,
 						newUser.streamingService
 					);
 

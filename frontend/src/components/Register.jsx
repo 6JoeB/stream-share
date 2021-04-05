@@ -3,20 +3,20 @@ import apiService from "../api/index";
 
 const Register = () => {
 	const [formData, setFormData] = useState({
-		name: "",
+		username: "",
 		email: "",
 		streamingService: "",
 	});
 
 	const [formSubmitted, toggleFormSubmitted] = useState(false);
 
-	const { name, email, streamingService } = formData;
+	const { username, email, streamingService } = formData;
 
 	const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
-		apiService.registerUser(name, email, streamingService);
+		apiService.registerUser(username, email, streamingService);
 		toggleFormSubmitted(true);
 	};
 
@@ -37,8 +37,8 @@ const Register = () => {
 									className='form--input'
 									autoComplete='off'
 									type='text'
-									name='name'
-									value={name}
+									name='username'
+									value={username}
 									onChange={(e) => onChange(e)}
 									required
 								/>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import apiService from "../api/index";
 
 const EmailVerified = ({ match }) => {

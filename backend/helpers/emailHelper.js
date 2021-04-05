@@ -54,8 +54,39 @@ const userMatchFoundEmail = (
 	});
 };
 
+const verificationEmail = (username, streamingService, email) => {
+	var transport = nodemailer.createTransport({
+		service: "Gmail",
+		auth: {
+			user: emailAddress,
+			pass: emailPassword,
+		},
+	});
+
+	var mailOptions = {
+		from: '"Stream Share" <StreamShareContact@gmail.com>',
+		to: email,
+		subject: "Verify your Stream Share account",
+		text: "Please verify that you signed up for Stream Share",
+		html: `<h2><b> Hi there, ${username}! </b></h2>
+        Looks like someone signed up to Stream Share using your email. <br />
+        If this was not you then you can safely ignore this email. <br />
+        <a href="http://localhost:3000/verify/${streamingService}/${email}" target="_blank">Click here to verify your email.</a>
+        <br /><br />
+        <i>From the team at Stream Share</i>`,
+	};
+
+	transport.sendMail(mailOptions, (error, info) => {
+		if (error) {
+			return console.log(error);
+		}
+		console.log("Message sent: %s", info.messageId);
+	});
+};
+
 const emailHelper = {
 	userMatchFoundEmail,
+	verificationEmail,
 };
 
 module.exports = emailHelper;

@@ -6,8 +6,8 @@ const config = {
 	},
 };
 
-export const registerUser = async (name, email, streamingService) => {
-	const body = JSON.stringify({ name, email, streamingService });
+export const registerUser = async (username, email, streamingService) => {
+	const body = JSON.stringify({ username, email, streamingService });
 
 	try {
 		await axios.post(`/api/users/register`, body, config);
